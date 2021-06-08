@@ -6,5 +6,7 @@ To get started run:
   
 
 The default user credentials are:
+
 Username: admin
+
 Password: admin
