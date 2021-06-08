@@ -62,11 +62,12 @@ USER root
 RUN pip3 install lief
 
 # Install Viper from Source
-WORKDIR /opt
-RUN git clone git clone https://github.com/viper-framework/viper && \
-    cd viper && \
-    pip3 install .
-WORKDIR /opt/viper/viper/data
+USER root
+RUN pip3 install lief
+RUN pip3 install viper-framework
+RUN viper
+
+WORKDIR /root/.viper
 RUN sed -i "#admin_username/c\admin_username\ =\ ${web_user}" viper.conf
 RUN sed -i "#admin_password/c\admin_password\ =\ ${web_password}" viper.conf
 RUN sed -i "virustotal_has_private_key/c\virustotal_has_private_key\ =\ ${virustotal_private_key}" viper.conf
