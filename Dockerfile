@@ -76,7 +76,7 @@ RUN sed -i "/#admin_password/c admin_password\ =\ "${web_password}"" viper.conf
 RUN sed -i "/virustotal_has_private_key/c virustotal_has_private_key\ =\ "${virustotal_private_key}"" viper.conf
 RUN sed -i "/virustotal_has_intel_key/c virustotal_has_intel_key\ =\ "${virustotal_intel_key}"" viper.conf
 RUN sed -i "/virustotal_key/c virustotal_key\ =\ "${virustotal_key}"" viper.conf
-RUN sed -i "/storage_path/c storage_path\ =\ /var/malware"${virustotal_key}"" viper.conf
+RUN sed -i "/storage_path/c storage_path\ =\ "/var/malware"" viper.conf
 
 
 # Install Viper Web
