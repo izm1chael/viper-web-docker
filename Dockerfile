@@ -3,8 +3,6 @@ MAINTAINER izm1chael
 
 ARG web_user=admin
 ARG web_password=admin
-ARG web_host=127.0.0.1
-ARG web_port=8080
 ARG virustotal_private_key=False
 ARG virustotal_intel_key=False
 ARG virustotal_key
@@ -62,22 +60,21 @@ RUN pip3 install yara-python
 
 USER root
 RUN pip3 install lief
-RUN pip3 install viper-framework
-RUN touch /usr/local/lib/python3.8/dist-packages/viper/data/viper.conf
-WORKDIR /usr/local/lib/python3.8/dist-packages/viper/data
-RUN echo "[web]" >> viper.conf
-RUN echo "host = ${web_host}" >> viper.conf
-RUN echo "port = ${web_port}" >> viper.conf
-RUN echo "tls = False" >> viper.conf
-RUN echo "admin_username = ${web_user}" >> viper.conf
-RUN echo "admin_password = ${web_password}" >> viper.conf
-RUN echo "[virustotal]" >> viper.conf
-RUN echo "virustotal_has_private_key = ${virustotal_private_key}" >> viper.conf
-RUN echo "virustotal_has_intel_key = ${virustotal_intel_key}" >> viper.conf
-RUN echo "virustotal_key = ${virustotal_key}" >> viper.conf
-RUN echo "[yara]" >> viper.conf
-RUN echo "repositories = https://github.com/Neo23x0/signature-base.git" >> viper.conf
 
+# Install Viper from Source
+USER root
+RUN pip3 install lief
+RUN pip3 install viper-framework
+RUN viper
+
+WORKDIR /root/.viper
+RUN sed -i "/#admin_username/c admin_username\ =\ "${web_user}"" viper.conf
+RUN sed -i "/#admin_password/c admin_password\ =\ "${web_password}"" viper.conf
+RUN sed -i "/virustotal_has_private_key/c virustotal_has_private_key\ =\ "${virustotal_private_key}"" viper.conf
+RUN sed -i "/virustotal_has_intel_key/c virustotal_has_intel_key\ =\ "${virustotal_intel_key}"" viper.conf
+RUN sed -i "/virustotal_key/c virustotal_key\ =\ "${virustotal_key}"" viper.conf
+
+# Install Viper Web
 WORKDIR /opt
 RUN git clone https://github.com/viper-framework/viper-web.git && \
     cd viper-web && \
