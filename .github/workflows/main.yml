@@ -40,9 +40,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: izm1chael/viper-cli:${{ github.ref }}
+          tags: izm1chael/viper-web:${{ github.ref }}
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: docker.pkg.github.com/${{ github.actor }}/viper-cli:$(date +%s)
+          tags: docker.pkg.github.com/${{ github.actor }}/viper-web:$(date +%s)
