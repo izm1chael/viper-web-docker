@@ -62,9 +62,14 @@ RUN pip3 install yara-python
 
 USER root
 RUN pip3 install lief
-RUN pip3 install viper-framework
-RUN touch /usr/local/lib/python3.8/dist-packages/viper/data/viper.conf
-WORKDIR /usr/local/lib/python3.8/dist-packages/viper/data
+
+# Install Viper from Source
+WORKDIR /opt
+RUN git clone git clone https://github.com/viper-framework/viper && \
+    cd viper && \
+    pip3 install .
+WORKDIR /opt/viper/viper/data
+RUN touch viper.conf
 RUN echo "[web]" >> viper.conf
 RUN echo "host = ${web_host}" >> viper.conf
 RUN echo "port = ${web_port}" >> viper.conf
@@ -78,6 +83,7 @@ RUN echo "virustotal_key = ${virustotal_key}" >> viper.conf
 RUN echo "[yara]" >> viper.conf
 RUN echo "repositories = https://github.com/Neo23x0/signature-base.git" >> viper.conf
 
+# Install Viper Web
 WORKDIR /opt
 RUN git clone https://github.com/viper-framework/viper-web.git && \
     cd viper-web && \
