@@ -68,11 +68,11 @@ RUN pip3 install viper-framework
 RUN viper
 
 WORKDIR /root/.viper
-RUN sed -i "#admin_username/c\admin_username\ =\ ${web_user}" viper.conf
-RUN sed -i "#admin_password/c\admin_password\ =\ ${web_password}" viper.conf
-RUN sed -i "virustotal_has_private_key/c\virustotal_has_private_key\ =\ ${virustotal_private_key}" viper.conf
-RUN sed -i "virustotal_has_intel_key/c\virustotal_has_intel_key\ =\ ${virustotal_intel_key}" viper.conf
-RUN sed -i "virustotal_key/c\virustotal_key\ =\ ${virustotal_key}" viper.conf
+RUN sed -i "/#admin_username/c admin_username\ =\ "${web_user}"" viper.conf
+RUN sed -i "/#admin_password/c admin_password\ =\ "${web_password}"" viper.conf
+RUN sed -i "/virustotal_has_private_key/c virustotal_has_private_key\ =\ "${virustotal_private_key}"" viper.conf
+RUN sed -i "/virustotal_has_intel_key/c virustotal_has_intel_key\ =\ "${virustotal_intel_key}"" viper.conf
+RUN sed -i "/virustotal_key/c virustotal_key\ =\ "${virustotal_key}"" viper.conf
 
 # Install Viper Web
 WORKDIR /opt
