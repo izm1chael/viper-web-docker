@@ -52,12 +52,6 @@ RUN tar -zxf yara-${YARA_VERSION}.tar.gz && \
   bash bootstrap.sh
 RUN pip3 install yara-python
 
-# Create Viper User
-RUN groupadd -r viper && \
-  useradd -r -g viper -d /home/viper -s /sbin/nologin -c "Viper User" viper && \
-  mkdir /home/viper && \
-  chown -R viper:viper /home/viper
-
 USER root
 RUN pip3 install lief
 RUN pip3 install viper-framework
@@ -70,7 +64,8 @@ RUN git clone https://github.com/viper-framework/viper-web.git && \
 # Clean tmp_build
 RUN rm -rf ~/tmp_build
 
-
 EXPOSE 8080
+HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1   
+
 WORKDIR /opt/viper-web
 CMD ["./viper-web", "-H", "0.0.0.0", "-p", "8080"]
