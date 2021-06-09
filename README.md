@@ -11,14 +11,9 @@ Viper is a binary analysis and management framework. Its fundamental objective i
 
     docker run -d \
       --name=aleph \
-      -p 5000:5000 \
-      -p 6881/udp:6881/udp \
-      -v /path/to/malware/samples:/opt/aleph/samples \
-      -v /path/to/your/unprocessed/samples:/opt/aleph/unprocessed_samples \
-      -v /path/to/your/elasticsearch/data:/usr/share/elasticsearch/data
-      -v /path/to/your/elasticsearch/config:/usr/share/elasticsearch/config
+      -p 8080:8080 \
       --restart unless-stopped \
-      izm1chael/aleph
+      izm1chael/viper-web
 
 
 
@@ -27,15 +22,10 @@ Viper is a binary analysis and management framework. Its fundamental objective i
 ---
 version: "2.1"
 services:
-  aleph:
-    image:  izm1chael/aleph
-    container_name: aleph
-    volumes:
-      - /path/to/malware/samples:/opt/aleph/samples \
-      - /path/to/your/unprocessed/samples:/opt/aleph/unprocessed_samples \
-      - /path/to/your/elasticsearch/data:/usr/share/elasticsearch/data
-      - /path/to/your/elasticsearch/config:/usr/share/elasticsearch/config
+  viper:
+    image:  izm1chael/viper-web
+    container_name: viper
     ports:
-      - 5000:5000
+      - 8080:8080
     restart: unless-stopped
 ```
