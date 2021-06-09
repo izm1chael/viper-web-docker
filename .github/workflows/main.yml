@@ -15,10 +15,6 @@ jobs:
     - name: Sysdig CIS Dockerfile Benchmark
       uses: sysdiglabs/benchmark-dockerfile@v1.0.0
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag izm1chael/viper-web:latest
-    - name: Check out the repo
-      uses: actions/checkout@v2
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
