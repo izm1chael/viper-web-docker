@@ -5,11 +5,13 @@ on:
     branches: [ main ]
     paths-ignore:
       - '**/README.md'
+      - '**/workflows/**'
     
   pull_request:
     branches: [ main ]
     paths-ignore:
       - '**/README.md'
+      - '**/workflows/**'
 
 jobs:
 
