@@ -6,7 +6,7 @@
 
 
 
-[![Docker Image CI](https://github.com/izm1chael/viper-web-docker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/izm1chael/viper-web-docker/actions/workflows/docker-image.yml)
+[![Docker Image CI](https://github.com/izm1chael/viper-web-docker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/izm1chael/viper-web-docker/actions/workflows/docker-image.yml)[![Publish Docker image to Docker Hub](https://github.com/izm1chael/viper-web-docker/actions/workflows/publish_dockerhub.yml/badge.svg)](https://github.com/izm1chael/viper-web-docker/actions/workflows/publish_dockerhub.yml)
 
   
   
