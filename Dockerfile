@@ -1,12 +1,6 @@
 FROM ubuntu:latest
 MAINTAINER izm1chael
 
-ARG web_user=admin
-ARG web_password=admin
-ARG virustotal_private_key=False
-ARG virustotal_intel_key=False
-ARG virustotal_key
-
 ENV YARA_VERSION       4.1.0
 ENV PYEXIF_VERSION     0.2.0
 ENV ANDROGUARD_VERSION 1.9
@@ -69,14 +63,7 @@ RUN viper
 
 RUN mkdir /var/malware
 
-
-WORKDIR /root/.viper
-RUN sed -i "/#admin_username/c admin_username\ =\ "${web_user}"" viper.conf
-RUN sed -i "/#admin_password/c admin_password\ =\ "${web_password}"" viper.conf
-RUN sed -i "/virustotal_has_private_key/c virustotal_has_private_key\ =\ "${virustotal_private_key}"" viper.conf
-RUN sed -i "/virustotal_has_intel_key/c virustotal_has_intel_key\ =\ "${virustotal_intel_key}"" viper.conf
-RUN sed -i "/virustotal_key/c virustotal_key\ =\ "${virustotal_key}"" viper.conf
-RUN sed -i "/storage_path/c storage_path\ =\ "/var/malware"" viper.conf
+ADD /config/viper.conf  /root/.viper/viper.conf
 
 
 # Install Viper Web
