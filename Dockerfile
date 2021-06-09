@@ -90,6 +90,7 @@ RUN rm -rf ~/tmp_build
 
 EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1   
+VOLUME /var/malware /root/.viper
 
 WORKDIR /opt/viper-web
 CMD ["./viper-web", "-H", "0.0.0.0", "-p", "8080"]
