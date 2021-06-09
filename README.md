@@ -3,7 +3,7 @@
   <img src="https://viper-framework.readthedocs.io/en/latest/_images/viper.png" />
 </p>
 
-![Viper](https://viper-framework.readthedocs.io/en/latest/_images/viper.png)
+# Viper Framework Web Interface
 
 Viper is a binary analysis and management framework. Its fundamental objective is to provide a solution to easily organize your collection of malware and exploit samples as well as your collection of scripts you created or found over the time to facilitate your daily research.
 
