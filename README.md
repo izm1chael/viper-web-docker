@@ -19,6 +19,8 @@ Viper is a binary analysis and management framework. Its fundamental objective i
     docker run -d \
       --name=aleph \
       -p 8080:8080 \
+      -v /path/to/your/malware/samples:/var/malware \
+      -v /path/to/your/config/data:/root/.viper
       --restart unless-stopped \
       izm1chael/viper-web
 
@@ -34,5 +36,8 @@ services:
     container_name: viper
     ports:
       - 8080:8080
+    volumes:
+      -/path/to/your/malware/samples:/var/malware
+      - /path/to/your/config/data:/root/.viper
     restart: unless-stopped
 ```
