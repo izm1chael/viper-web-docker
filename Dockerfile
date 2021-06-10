@@ -1,6 +1,39 @@
 FROM ubuntu:latest
 MAINTAINER izm1chael
 
+# Database Configuration
+ARG db_connection=sqlite:///root/.viper/viper.db
+ENV db_connection=${db_connection}
+# Log file location
+ARG log_file=/var/log/viper.log
+ENV log_file=${log_file}
+# Web UI configuration
+ARG username=admin
+ENV username=${username}
+ARG password=admin
+ENV password=${password}
+ARG port=8080
+ENV port=${port}
+ARG host=127.0.0.1
+ENV host=${host}
+# Virus Total Configuration
+ARG virustotal_private=False
+ENV virustotal_private=${virustotal_private}
+ARG virustotal_intel=False
+ENV virustotal_intel=${virustotal_intel}
+ARG virustotal_key
+ENV virustotal_key=${virustotal_key}
+# Cuckoo Sandbox configuration
+ARG cuckoo_modified=False
+ENV cuckoo_modified=${cuckoo_modified}
+ARG cuckoo_host=http://localhost:8090
+ENV cuckoo_host=${cuckoo_host}
+ARG cuckoo_web=http://localhost:8000
+ARG auth_token
+ENV auth_token=${auth_token}
+
+
+
 ENV YARA_VERSION       4.1.0
 ENV PYEXIF_VERSION     0.2.0
 ENV ANDROGUARD_VERSION 1.9
@@ -63,14 +96,18 @@ RUN viper
 
 RUN mkdir /var/malware
 
-ADD /config/viper.conf  /root/.viper/viper.conf
-
-
 # Install Viper Web
 WORKDIR /opt
 RUN git clone https://github.com/viper-framework/viper-web.git && \
     cd viper-web && \
     pip3 install -r requirements.txt 
+
+RUN mkdir /opt/scripts
+ADD /scripts/configure.sh /opt/scripts/configure.sh 
+RUN bash /opt/scripts/configure.sh 
+ADD /scripts/start.sh /opt/scripts/start.sh
+RUN chmod +x /opt/scripts/start.sh
+RUN chmod +x /opt/viper-web/viper-web
 
 # Clean tmp_build
 RUN rm -rf ~/tmp_build
@@ -79,5 +116,10 @@ EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1   
 VOLUME /var/malware /root/.viper
 
-WORKDIR /opt/viper-web
-CMD ["./viper-web", "-H", "0.0.0.0", "-p", "8080"]
+#ENTRYPOINT ["/opt/scripts/start.sh"]
+#WORKDIR /opt/viper-web
+#CMD ["./viper-web", "-H", "0.0.0.0", "-p", "8080"]
+WORKDIR /opt/scripts
+ENTRYPOINT ["/opt/scripts/start.sh"]
+#WORKDIR /opt/viper-web
+#CMD [bi"/opt/scripts/start.sh", "&&", "./viper-web", "-H", ""${host}"", "-p", ""${port}""]
