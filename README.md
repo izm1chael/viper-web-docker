@@ -43,6 +43,7 @@ services:
     restart: unless-stopped
 ```
 Additional configuration:
+
 |Parameter | Function |
 | ---- | --- |
 | `-e username=admin` | Set username for web interface |
