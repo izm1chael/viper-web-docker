@@ -116,10 +116,5 @@ EXPOSE 8080
 HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1   
 VOLUME /var/malware /root/.viper
 
-#ENTRYPOINT ["/opt/scripts/start.sh"]
-#WORKDIR /opt/viper-web
-#CMD ["./viper-web", "-H", "0.0.0.0", "-p", "8080"]
 WORKDIR /opt/scripts
 ENTRYPOINT ["/opt/scripts/start.sh"]
-#WORKDIR /opt/viper-web
-#CMD [bi"/opt/scripts/start.sh", "&&", "./viper-web", "-H", ""${host}"", "-p", ""${port}""]
